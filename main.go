@@ -41,5 +41,5 @@ func shutdown(w http.ResponseWriter, r *http.Request) {
 func unlockSafe(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "piInterface.html")
 	fmt.Println("Someone hit the unlock safe feature")
-	piUtils.UnlockSafe(18)
+	piUtils.UnlockSafe()
 }
