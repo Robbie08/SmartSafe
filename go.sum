@@ -1,5 +1,7 @@
 github.com/Robbie08/GoPiTest v0.0.0-20210914154535-03a64ef108a1 h1:7R6qcxy4CZ8LFJTUCvhTfAHM/gJAWWaiQQddzO15DcQ=
 github.com/Robbie08/GoPiTest v0.0.0-20210914154535-03a64ef108a1/go.mod h1:ozF8E1iIi7bgj++GlG3qD97cfbAFZWGNEOWNhM3qzjo=
+github.com/cgxeiji/servo v0.1.1 h1:oLEZcQ2IoDbwXR2NQsUwc7q7WQMXpS3K4t58E31+U/4=
+github.com/cgxeiji/servo v0.1.1/go.mod h1:rHPM7W/aQiCSyhhqeCu20oWEJbx/cPJdWl4ljjdueGw=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/sirupsen/logrus v1.8.1 h1:dJKuHgqk1NNQlqoA6BTlM1Wf9DOH3NBjQyu0h9+AZZE=
