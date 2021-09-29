@@ -25,7 +25,6 @@ The application contains a makefile so all the commands are taken care of.
 5. Rebase your feature branch
    - `$ git checkout my-awesome-feature`
    - `$ git rebase master`
-6. Squash commits through interactive rebasing, use rebasing tutorials if needed: [article](https://thoughtbot.com/blog/git-interactive-rebase-squash-amend-rewriting-history)  or  [youtube video](https://www.youtube.com/watch?v=V5KrD7CmO4o)
-7. Push your feature to your origin
+6. Push your feature to your origin
     - `$ git push origin my-awesome-feature`
-8. Make a pull request from feature branch to original master
+7. Make a pull request from feature branch to original master
