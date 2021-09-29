@@ -3,13 +3,13 @@
 ### Getting Started
 * To run this application you will need to have Go set up on your machine. 
   * You can [download Go by clicking on this link](https://golang.org/doc/tutorial/getting-started) and following the instruction. 
-* Use the terminal to cd into `/go/src` and create a new directory by using `mkdir SmartSafe`.
+* Use the terminal to cd into `/go/src`.
   * (WARNING! This project needs to be in your GOPATH; If it isn't `/go/src` then use the appropriate destination.) 
-* Next `cd SmartSafe` and clone this project by using `git clone git@github.com:Robbie08/SmartSafe.git`
+* Next clone this project by using `git clone git@github.com:Robbie08/SmartSafe.git`
 
 ### To Build and Run:
 The application contains a makefile so all the commands are taken care of. 
-* To Build run the command `make build`
+* To Build use the command `make build`
 * To run you must use `make run` and the server should spin up on port 8080.
 * If running on your machine you can type in `127.0.0.1:8080` into your browser but for the raspberry pi, ask me for the ip address.
 
