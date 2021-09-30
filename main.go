@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+    // we will leave this close function in case ListenAndServe() unexpectedly stops
 	defer servo.Close() // close out any connections with servos and pi-blaster
 	log.SetFormatter(&log.JSONFormatter{})
 	log.Info("Starting server...")
@@ -24,8 +25,6 @@ func defaultPage(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		path := r.URL.Path
-		fmt.Println(path)
-
 		if path == "/" {
 			path = "./client/index.html"
 		} else {
@@ -37,7 +36,7 @@ func defaultPage(w http.ResponseWriter, r *http.Request) {
 		r.ParseMultipartForm(0)
 		message := r.FormValue("message")
 		fmt.Println("--------------------------------------------")
-		fmt.Println("Msg from client: ", message)
+		fmt.Println("Password from client: ", message)
 		// we can make the calll to our piUtils.UnlockSafe() here!
 		piUtils.UnlockSafe()
 	default:

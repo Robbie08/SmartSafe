@@ -9,9 +9,6 @@ import (
 func UnlockSafe() {
 	PIN := 14 // PIN number of where the sevo signal is connected
 	fmt.Println("Unlocking Safe...")
-	// must include all logic to control SmartSafe hardware here
-
-	defer servo.Close() // close out any connections with servos and pi-blaster
 
 	// rotate servo motor 4 times
 	for i := 0; i < 4; i++ {
