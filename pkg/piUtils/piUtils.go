@@ -30,7 +30,7 @@ func rotateServo(pin int) {
 	oServo.SetPosition(90)    // the starting poition of the servo hand
 	oServo.SetSpeed(0.2)      // set our rotation speed of 20%
 
-	fmt.Println(oServo)
+	fmt.Println(".")
 
 	err := oServo.Connect() // Connect Servo instance to pi-blaster daemon
 
