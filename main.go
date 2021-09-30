@@ -3,12 +3,14 @@ package main
 import (
 	"fmt"                                       // golang formatting library -> for printing out to stdout
 	"github.com/Robbie08/SmartSafe/pkg/piUtils" // contains our code to control pi
-	log "github.com/sirupsen/logrus"            // library that helps with loging and monitoring
-	"net/http"                                  // library that provides us with code for creating HTTP server and request response logic
-	"os"                                        // gives us access to system calls
+	"github.com/cgxeiji/servo"
+	log "github.com/sirupsen/logrus" // library that helps with loging and monitoring
+	"net/http"                       // library that provides us with code for creating HTTP server and request response logic
+	"os"                             // gives us access to system calls
 )
 
 func main() {
+	defer servo.Close() // close out any connections with servos and pi-blaster
 	log.SetFormatter(&log.JSONFormatter{})
 	log.Info("Starting server...")
 	http.HandleFunc("/", defaultPage)
@@ -47,5 +49,6 @@ func defaultPage(w http.ResponseWriter, r *http.Request) {
 // our HTTP Server to prevent any external access to the pi
 func shutdown(w http.ResponseWriter, r *http.Request) {
 	log.Info("Shutting server down...")
-	os.Exit(0)
+	servo.Close() // close out any connections with servos and pi-blaster
+	os.Exit(0)    // our system exited without any errors
 }
