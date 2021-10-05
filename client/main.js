@@ -16,8 +16,9 @@ inputForm.addEventListener("submit", (e)=>{
     }).then(
         response => response.text()
     ).then(
-        (data) => {console.log(data);document.getElementById("serverMessageBox").innerHTML=data}
+        (data) => {console.log(data);document.getElementsByName("message").innerHTML=data}
     ).catch(
         error => console.error(error)
     )
 })
+//changed getElementById on line 19 to getElementsByName 
