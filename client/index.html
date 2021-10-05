@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="/client/index.css"/>
 <html lang="en">
   <head>
     <title>Smart Safe</title>
@@ -8,17 +9,26 @@
     <META HTTP-EQUIV="EXPIRES" CONTENT="0">
   </head>
   <body>
+    <div id="pageTitle">
     <h1>Smart Safe</h1>
+    </div>
     <br>
     <div id="formBody">
-        <form method="POST" id="inputForm">
-            <label for="message">Password</label>
-            <input id="message" name="message" value="Password" type="text">
-            <button type="submit" style="width:100px;">Go ...</button>
-        </form>
+      <form method="POST" id="inputForm">
+        <label for="message">Username</label>
+        <input class="message" name="message" value="Username" type="text">
+        <br>
+        <label for="message">Password</label>
+        <input class="message" name="message" value="Password" type="text">
+        <br>
+        <button type="submit" style="width:100px;" class="btn" id="gobtn">Go ..</button>
+      </form>
     </div>
     <br> 
     <a href="/shutdown"><button>Turn Server Off</button></a>
+    <div id="smartSafe">
+      <h2 id="textimg">&#x2714</h2>
+    </div>
   </body>
   <script src="/client/main.js"></script>
 </html>
