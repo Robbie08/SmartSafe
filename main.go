@@ -9,7 +9,7 @@ import (
 	"os"                             // gives us access to system calls
 )
 
-var password string = ""
+var password string = ""   // python client writes to this, authenticator reads from this
 
 func main() {
 	// we will leave this close function in case ListenAndServe() unexpectedly stops
@@ -22,12 +22,14 @@ func main() {
 	http.ListenAndServe(":8080", nil)
 }
 
+// This function will handle any incoming requests from the python client.
+// Inside it should unpackage the data and save our password.
 func pyclient(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "POST":
 		r.ParseMultipartForm(0)
 		message := r.FormValue("message")
-		password = message /* Store our password as a global var so validation can use it*/
+		password = message // Store our password as a global var so validation can use it
 		fmt.Println("\n--------------- Received Python Client Message ---------------")
 		fmt.Println("Password from pClient: ", message)
 	default:
@@ -62,7 +64,7 @@ func defaultPage(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("Error: no Authentication provided by Python client")
 		} else {
 			if password == message {
-				piUtils.UnlockSafe()
+				piUtils.UnlockSafe() // contact our hardware program that unlocks safe
 				fmt.Println("Safe Unlocked")
 				password = "" /* make sure to reset password after successful auth*/
 			} else {
