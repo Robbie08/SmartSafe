@@ -4,7 +4,7 @@ import random
 # This function will send our payload with password
 # @params: A password that we will send over to our http server
 def sendPayload(passwd):
-    payload = {'message': passwd }
+    payload = {'message': passwd, 'id':'003349' }
     req.post('http://localhost:8080/pyclient', params=payload)
 
 # This function will generate a password
