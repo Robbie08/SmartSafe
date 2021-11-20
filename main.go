@@ -9,7 +9,8 @@ import (
 	"os"                             // gives us access to system calls
 )
 
-var password string = ""   // python client writes to this, authenticator reads from this
+var password string = "" // python client writes to this, authenticator reads from this
+var safeId string = ""   // python client writes to this, authenticator reads from this
 
 func main() {
 	// we will leave this close function in case ListenAndServe() unexpectedly stops
@@ -27,11 +28,14 @@ func main() {
 func pyclient(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "POST":
+		// Unpackage and store our password and safeId sent by python client
 		r.ParseMultipartForm(0)
-		message := r.FormValue("message")
-		password = message // Store our password as a global var so validation can use it
+		password = r.FormValue("message")
+		safeId = r.FormValue("id")
+
 		fmt.Println("\n--------------- Received Python Client Message ---------------")
-		fmt.Println("Password from pClient: ", message)
+		fmt.Println("Password from pClient: ", password)
+		fmt.Println("Id from pClient: ", safeId)
 	default:
 		fmt.Println("This handle only handles POST requests")
 	}
@@ -54,21 +58,23 @@ func defaultPage(w http.ResponseWriter, r *http.Request) {
 	case "POST":
 		/* Receive and unpackage payload sent via HTTP */
 		r.ParseMultipartForm(0)
-		message := r.FormValue("message")
+		passwdSFClient := r.FormValue("message") // The password typed in by user to SmartSafe Client
+		idSFClient := "003349"                   // Dummy for now but This should be the value passed by our SmartSafe Client(typed in by user)
 
 		fmt.Println("\n--------------------- Authenticating -------------------------")
-		fmt.Println("Password from SmartSafe client: ", message)
+		fmt.Println("Password from SmartSafe client: ", passwdSFClient)
+		fmt.Println("Id from SmartSafe client: ", idSFClient)
 
 		/* Authenticate if the user entered the correct password */
-		if password == "" {
+		if password == "" || safeId == "" {
 			fmt.Println("Error: no Authentication provided by Python client")
 		} else {
-			if password == message {
+			if password == passwdSFClient && safeId == idSFClient {
 				piUtils.UnlockSafe() // contact our hardware program that unlocks safe
 				fmt.Println("Safe Unlocked")
 				password = "" /* make sure to reset password after successful auth*/
 			} else {
-				fmt.Println("Error: passwords do not match")
+				fmt.Println("Error: incorrect auth credentials")
 			}
 		}
 	default:
