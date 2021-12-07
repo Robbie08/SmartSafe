@@ -1,12 +1,13 @@
 package main
 
 import (
-	"fmt"                                       // golang formatting library -> for printing out to stdout
+	"fmt"      // golang formatting library -> for printing out to stdout
+	"net/http" // library that provides us with code for creating HTTP server and request response logic
+	"os"       // gives us access to system calls
+
 	"github.com/Robbie08/SmartSafe/pkg/piUtils" // contains our code to control pi
 	"github.com/cgxeiji/servo"
 	log "github.com/sirupsen/logrus" // library that helps with loging and monitoring
-	"net/http"                       // library that provides us with code for creating HTTP server and request response logic
-	"os"                             // gives us access to system calls
 )
 
 var password string = "" // python client writes to this, authenticator reads from this
@@ -20,7 +21,27 @@ func main() {
 	http.HandleFunc("/", defaultPage)
 	http.HandleFunc("/shutdown", shutdown)
 	http.HandleFunc("/pyclient", pyclient)
+	http.HandleFunc("/rfidClient", rfidClient)
 	http.ListenAndServe(":8080", nil)
+}
+
+// This function will handle any incoming requests from the python client.
+// Inside it should unpackage the data and save our password.
+func rfidClient(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "POST":
+		// Unpackage and store our password and safeId sent by python client
+		r.ParseMultipartForm(0)
+		msg := r.FormValue("message")
+
+		fmt.Println("\n--------------- Received RFID Client Message ---------------")
+		fmt.Println("Password from rfidClient: ", msg)
+
+		// clients want to hit this endpoint http://localhost:8080/rfidClient
+		w.Write([]byte("Sending you a response"))
+	default:
+		fmt.Println("This handle only handles POST requests")
+	}
 }
 
 // This function will handle any incoming requests from the python client.
