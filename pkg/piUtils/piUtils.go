@@ -42,8 +42,8 @@ func rotateServo(pin int) {
 	defer oServo.Close()
 
 	oServo.SetSpeed(0.8)
-	oServo.MoveTo(90) // no-blocking will rotate 180 degrees from start
-	oServo.Wait()     // will allow sync with servo
+	oServo.MoveTo(180) // no-blocking will rotate 180 degrees from start
+	oServo.Wait()      // will allow sync with servo
 	time.Sleep(20 * time.Second)
 	oServo.MoveTo(0).Wait()
 
