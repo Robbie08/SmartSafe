@@ -8,6 +8,9 @@ build:
 	gofmt -w main.go
 	go build -o bin/main main.go
 
+
+clean:
+	rm bin/main
 # This target does what it says, once we have everything setup
 # we can just run our program.
 run:

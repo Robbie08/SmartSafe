@@ -4,14 +4,17 @@ import (
 	"fmt"      // golang formatting library -> for printing out to stdout
 	"net/http" // library that provides us with code for creating HTTP server and request response logic
 	"os"       // gives us access to system calls
+	"os/exec"
+	"time"
 
-	"github.com/Robbie08/SmartSafe/pkg/piUtils" // contains our code to control pi
+	// contains our code to control pi
 	"github.com/cgxeiji/servo"
 	log "github.com/sirupsen/logrus" // library that helps with loging and monitoring
 )
 
 var password string = "" // python client writes to this, authenticator reads from this
 var safeId string = ""   // python client writes to this, authenticator reads from this
+var isValid string = "false"
 
 func main() {
 	// we will leave this close function in case ListenAndServe() unexpectedly stops
@@ -32,13 +35,19 @@ func rfidClient(w http.ResponseWriter, r *http.Request) {
 	case "POST":
 		// Unpackage and store our password and safeId sent by python client
 		r.ParseMultipartForm(0)
-		msg := r.FormValue("message")
 
 		fmt.Println("\n--------------- Received RFID Client Message ---------------")
-		fmt.Println("Password from rfidClient: ", msg)
 
+		cmd := exec.Command("python3", "./pyClient.py")
+		fmt.Println("Running python program")
+		err := cmd.Run()
+		if err != nil {
+			fmt.Println("Finished :", err)
+		}
+		time.Sleep(30 * time.Second)
 		// clients want to hit this endpoint http://localhost:8080/rfidClient
-		w.Write([]byte("Sending you a response"))
+		w.Write([]byte(isValid))
+		isValid = "false"
 	default:
 		fmt.Println("This handle only handles POST requests")
 	}
@@ -78,6 +87,7 @@ func defaultPage(w http.ResponseWriter, r *http.Request) {
 
 	case "POST":
 		/* Receive and unpackage payload sent via HTTP */
+
 		r.ParseMultipartForm(0)
 		passwdSFClient := r.FormValue("message") // The password typed in by user to SmartSafe Client
 		idSFClient := "003349"                   // Dummy for now but This should be the value passed by our SmartSafe Client(typed in by user)
@@ -91,13 +101,15 @@ func defaultPage(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("Error: no Authentication provided by Python client")
 		} else {
 			if password == passwdSFClient && safeId == idSFClient {
-				piUtils.UnlockSafe() // contact our hardware program that unlocks safe
-				fmt.Println("Safe Unlocked")
+				//piUtils.UnlockSafe() // contact our hardware program that unlocks safe
+				fmt.Println("Authenticated.... will send response back with authentication")
+				isValid = "true"
 				password = "" /* make sure to reset password after successful auth*/
 			} else {
 				fmt.Println("Error: incorrect auth credentials")
 			}
 		}
+
 	default:
 		fmt.Println("This service only supports GET and POST requests")
 	}
