@@ -10,6 +10,7 @@ inputForm.addEventListener("submit", (e)=>{
     e.preventDefault()
 
     const formdata = new FormData(inputForm)
+    console.log(formdata)
     fetch(url,{
         method:"POST",
         body:formdata,

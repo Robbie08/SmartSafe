@@ -23,7 +23,9 @@
     border:10px solid green;
 }
 body{
+
     background-color: rgb(218, 0, 0);
+
 }
 #formBody{
     display: flex;
