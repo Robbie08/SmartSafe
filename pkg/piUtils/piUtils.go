@@ -27,7 +27,7 @@ func rotateServo(pin int) {
 	oServo.MaxPulse = 0.25    // sets the Max PWN pulse of the servo (this is the default)
 	oServo.Name = "ServoLock" // set the name of the servo
 	oServo.SetPosition(90)    // the starting poition of the servo hand
-	oServo.SetSpeed(0.2)      // set our rotation speed of 20%
+	oServo.SetSpeed(0.8)      // set our rotation speed of 20%
 
 	fmt.Println(".")
 
@@ -41,10 +41,10 @@ func rotateServo(pin int) {
 	// close any connection to the pin
 	defer oServo.Close()
 
-	oServo.SetSpeed(0.5)
-	oServo.MoveTo(180) // no-blocking will rotate 180 degrees from start
-	oServo.Wait()      // will allow sync with servo
-	time.Sleep(5 * time.Second)
+	oServo.SetSpeed(0.8)
+	oServo.MoveTo(90) // no-blocking will rotate 180 degrees from start
+	oServo.Wait()     // will allow sync with servo
+	time.Sleep(20 * time.Second)
 	oServo.MoveTo(0).Wait()
 
 }
