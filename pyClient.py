@@ -4,7 +4,7 @@ from twilio.rest import Client
 
 #Account_id and auth_tok is from twilio 
 account_id = 'AC787cc50b1cfe9876d6b56b7bdef62699'
-auth_tok = '6960bff9ba8ff13e2f864a0d89873798'
+auth_tok = '#######'    # input your auth token in here ask Martin for it
 # This function will send our payload with password
 # @params: A password that we will send over to our http server
 def sendPayload(passwd):
@@ -20,12 +20,11 @@ password = generatePassword(10)
 
 #make Client to send message
 client = Client(account_id,auth_tok)
-
 #This sends the message to a given phone number
 message = client.messages.create(
     body = password,#the password that is generated
     from_= '+14342660608',#twilio phone number
-    to = '+16199882865' #This can be any phone number, must in this format +1##########
+    to = '+16194196610' #This can be any phone number, must in this format +1##########
 )
 print(message.body)
 sendPayload(password) # Generate password, package it into a payload and send it via http
