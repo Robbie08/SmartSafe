@@ -2,8 +2,10 @@ package piUtils
 
 import (
 	"fmt"
-	"github.com/cgxeiji/servo"
 	"log"
+	"time"
+
+	"github.com/cgxeiji/servo"
 )
 
 func UnlockSafe() {
@@ -11,7 +13,7 @@ func UnlockSafe() {
 	fmt.Println("Unlocking Safe...")
 
 	// rotate servo motor 4 times
-	for i := 0; i < 4; i++ {
+	for i := 0; i < 1; i++ {
 		rotateServo(PIN)
 	}
 }
@@ -42,7 +44,7 @@ func rotateServo(pin int) {
 	oServo.SetSpeed(0.5)
 	oServo.MoveTo(180) // no-blocking will rotate 180 degrees from start
 	oServo.Wait()      // will allow sync with servo
-
+	time.Sleep(5 * time.Second)
 	oServo.MoveTo(0).Wait()
 
 }

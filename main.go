@@ -44,7 +44,7 @@ func rfidClient(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Println("Finished :", err)
 		}
-		time.Sleep(30 * time.Second)
+		time.Sleep(45 * time.Second)
 		// clients want to hit this endpoint http://localhost:8080/rfidClient
 		w.Write([]byte(isValid))
 		isValid = "false"
@@ -93,7 +93,8 @@ func defaultPage(w http.ResponseWriter, r *http.Request) {
 		idSFClient := "003349"                   // Dummy for now but This should be the value passed by our SmartSafe Client(typed in by user)
 
 		fmt.Println("\n--------------------- Authenticating -------------------------")
-		fmt.Println("Password from SmartSafe client: ", passwdSFClient)
+		fmt.Println("Password from SmartSafe client	: ", passwdSFClient)
+		fmt.Println("Password from Python Client	: ", password)
 		fmt.Println("Id from SmartSafe client: ", idSFClient)
 
 		/* Authenticate if the user entered the correct password */
